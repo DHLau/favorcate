@@ -1,5 +1,6 @@
 import 'package:favorcate/ui/pages/detail/detail_page.dart';
 import 'package:favorcate/ui/pages/favor/favorpage.dart';
+import 'package:favorcate/ui/pages/filter/filter.dart';
 import 'package:favorcate/ui/pages/home/home.dart';
 import 'package:favorcate/ui/pages/main/MainScreen.dart';
 import 'package:favorcate/ui/pages/meal/meal.dart';
@@ -17,6 +18,13 @@ class DHRoute {
   };
 
   static final RouteFactory generateRoute = (settings) {
+    if (settings.name == FilterPage.routeName) {
+      return MaterialPageRoute(
+        builder: (context) => FilterPage(),
+        fullscreenDialog: true, // 全屏模式,
+        settings: settings,
+      );
+    }
     return null;
   };
   static final RouteFactory unknownRoute = (settings) {

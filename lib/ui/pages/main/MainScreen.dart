@@ -1,3 +1,4 @@
+import 'package:favorcate/ui/pages/home/home_drawer.dart';
 import 'package:flutter/material.dart';
 import 'initalize_items.dart';
 
@@ -17,6 +18,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: IndexedStack(index: _currentIndex, children: pages),
+      drawer: HomeDrawer(),
       bottomNavigationBar: BottomNavigationBar(
         items: items,
         currentIndex: _currentIndex,

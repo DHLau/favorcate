@@ -8,6 +8,13 @@ class OperationItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(children: [_icon, SizedBox(width: 3), Text(_title)]);
+    return Container(
+      width: MediaQuery.of(context).size.width / 4,
+      padding: EdgeInsets.symmetric(vertical: 24),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [_icon, SizedBox(width: 3), Text(_title)],
+      ),
+    );
   }
 }

@@ -1,7 +1,9 @@
 import 'package:favorcate/core/model/meal_model.dart';
+import 'package:favorcate/core/viewmodel/favor_view_model.dart';
 import 'package:favorcate/ui/pages/detail/detail_page.dart';
 import 'package:favorcate/ui/widgets/operation_item.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 const radius = Radius.circular(12);
 
@@ -63,16 +65,33 @@ class MealItemPage extends StatelessWidget {
   }
 
   Widget buildOperationInfo() {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          OperationItem(Icon(Icons.schedule), "${_mealModel.duration}分钟"),
-          OperationItem(Icon(Icons.restaurant), "${_mealModel.complexity}"),
-          OperationItem(Icon(Icons.favorite), "未收藏"),
-        ],
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        OperationItem(Icon(Icons.schedule), "${_mealModel.duration}分钟"),
+        OperationItem(Icon(Icons.restaurant), "${_mealModel.complexity}"),
+        buildFavorItem(),
+      ],
+    );
+  }
+
+  Widget buildFavorItem() {
+    return Consumer<FavorViewModel>(
+      builder: (ctx, favorVM, child) {
+        return GestureDetector(
+          child: OperationItem(
+            Icon(
+              favorVM.isFavor(_mealModel)
+                  ? Icons.favorite
+                  : Icons.favorite_border,
+            ),
+            favorVM.isFavor(_mealModel) ? "收藏" : "未收藏",
+          ),
+          onTap: () {
+            favorVM.handleFavor(_mealModel);
+          },
+        );
+      },
     );
   }
 }
